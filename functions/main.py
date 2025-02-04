@@ -6,7 +6,7 @@ from firebase_functions import scheduler_fn
 app = initialize_app()
 
 firebaseRegion="asia-northeast1"
-cronSchedule = "0 19 * * *"
+cronSchedule = "0 22 * * *"
 
 @scheduler_fn.on_schedule(schedule=cronSchedule, timezone="Asia/Tokyo", region=firebaseRegion)
 def send_weather_data_to_discord(event):
