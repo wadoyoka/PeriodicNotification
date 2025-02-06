@@ -7,12 +7,12 @@ import japanize_matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 import requests
-from discord_photo import Discord_Send_Photo
+from openweather.discord_photo import Discord_Send_Photo
 
 
 class OpenWeather_To_Discord:
     url=""
-    def __init__(self,API_KEY, CITY, lat, lon ,CITY_JapaneseName,reserchDay, MESSAGE,discord_webhook_url):
+    def __init__(self,API_KEY, CITY, lat, lon ,CITY_JapaneseName,reserchDay, MESSAGE,discord_webhook_url, IMAGE_NAME):
         self.API_KEY=API_KEY
         self.CITY=CITY
         self.lat=lat
@@ -21,6 +21,7 @@ class OpenWeather_To_Discord:
         self.reserchDay=reserchDay
         self.MESSAGE=MESSAGE
         self.IMAGE = None  # バイナリデータを保持するための変数
+        self.IMAGE_NAME=IMAGE_NAME
         self.discord_webhook_url=discord_webhook_url
         if self.lat == -1:
             self.url = f"http://api.openweathermap.org/data/2.5/forecast?appid={self.API_KEY}&q={self.CITY}&units=metric"
@@ -104,6 +105,6 @@ class OpenWeather_To_Discord:
     def send_Discord(self):
         """画像のバイナリデータを `self.IMAGE` に保持して送信"""
         self.IMAGE = self.main_excuse()
-        discord = Discord_Send_Photo(self.MESSAGE, self.IMAGE, self.discord_webhook_url)
+        discord = Discord_Send_Photo(self.MESSAGE, self.IMAGE, self.IMAGE_NAME,self.discord_webhook_url)
         discord.send_discord()
 
