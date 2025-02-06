@@ -1,17 +1,20 @@
 from openweather import tenkiyohou
 
-# from firebase_admin import initialize_app
-# from firebase_functions import scheduler_fn
+from firebase_admin import initialize_app
+from firebase_functions import scheduler_fn
 
-# # Firebase appの初期化（これは既に行われているはずですが、念のため）
-# app = initialize_app()
+app = initialize_app()
+# Firebaseの諸設定
+firebaseRegion="asia-northeast1"
+firebaseTimezone = "Asia/Tokyo"
 
-# firebaseRegion="asia-northeast1"
-# cronSchedule = "0 22 * * *"
+# 各cron情報
+weatherSchedule = "0 22 * * *"# 天気送信
 
-# @scheduler_fn.on_schedule(schedule=cronSchedule, timezone="Asia/Tokyo", region=firebaseRegion)
-# def send_weather_data_to_discord(event):
-#     tenkiyohou.send_weather_data()
+# 天気送信
+@scheduler_fn.on_schedule(schedule=weatherSchedule, timezone=firebaseTimezone, region=firebaseRegion)
+def send_weather_data_to_discord(event):
+    tenkiyohou.send_weather_data()
 
 
-tenkiyohou.send_weather_data()
+

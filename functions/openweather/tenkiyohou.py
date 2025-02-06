@@ -1,14 +1,16 @@
 import datetime
 import os
+from os.path import join, dirname
 
 from dotenv import load_dotenv
 from openweather.openWeatherDay import OpenWeather_To_Discord
 
 # .envファイルの内容を読み込見込む
-load_dotenv('.openweather\env')
+load_dotenv(verbose=True)
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 API_KEY = os.getenv('OPEN_WEATHER_TOKEN')
-print(API_KEY)
 CITY = os.getenv('OPEN_WEATHER_CITY')
 CITY_JapaneseName =os.getenv('OPEN_WEATHER_CITY_JAPANESE_NAME')
 reserchDay =1
